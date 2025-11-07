@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Darshan Da Café ☕ | Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fffaf2;
+      color: #333;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      width: 100%;
+      z-index: 10;
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #ffcc66;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffcc66;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      height: 90vh;
+      background: url("{{ url_for('static', filename='images/daniela-araya-BBK_MAfIJUI-unsplash.jpg') }}") center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      margin-bottom: 10px;
+      color: #ffcc66;
+      letter-spacing: 2px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .hero .btn {
+      background: #ffcc66;
+      color: #000;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .hero .btn:hover {
+      background: #ffb300;
+    }
+
+    /* ABOUT SECTION */
+    .about {
+      padding: 70px 10%;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: 32px;
+      color: #d35400;
+      margin-bottom: 15px;
+    }
+
+    .about p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #555;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* GALLERY SECTION */
+    .gallery {
+      padding: 60px 10%;
+      background-color: #fff3e6;
+      text-align: center;
+    }
+
+    .gallery h2 {
+      font-size: 30px;
+      color: #b34700;
+      margin-bottom: 40px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    /* WHY CHOOSE US */
+    .why {
+      padding: 70px 10%;
+      text-align: center;
+      background: #fff;
+    }
+
+    .why h2 {
+      font-size: 30px;
+      color: #d35400;
+      margin-bottom: 40px;
+    }
+
+    .why-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background-color: #fffaf2;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: #b34700;
+      margin-bottom: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #2b2b2b;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    footer p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">Darshan Da Café</div>
+    <nav>
+      <a href="{{ url_for('home') }}" class="active">Home</a>
+      <a href="{{ url_for('menu') }}">Menu</a>
+      <a href="{{ url_for('cart') }}">Cart</a>
+      <a href="{{ url_for('feedback') }}">Feedback</a>
+      {% if session.get('user_id') %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('signup') }}">Signup</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Darshan Da Café ☕</h1>
+      <p>Experience warmth, aroma, and handcrafted perfection in every sip & bite.</p>
+      <a href="{{ url_for('menu') }}" class="btn">Explore Menu</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <h2>About Us</h2>
+    <p>At Darshan Da Café, we blend passion and flavor to create an unforgettable dining experience. From freshly brewed coffee to authentic meals, every plate and cup is made with love and dedication to quality.</p>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery">
+    <h2>Our Interiors</h2>
+    <div class="gallery-grid">
+      <img src="{{ url_for('static', filename='images/reiss-kelly-alder-_aFLgalBltE-unsplash.jpg') }}" alt="Cafe Interior">
+      <img src="{{ url_for('static', filename='images/wiktoria-skrzekotowska-HRbaZnG-UhE-unsplash.jpg') }}" alt="Bar Counter">
+      <img src="{{ url_for('static', filename='images/alexandra-slo-FAda-CAyQDs-unsplash.jpg') }}" alt="Wine Glasses">
+      <img src="{{ url_for('static', filename='images/rizky-subagja-1k7TnX5GAww-unsplash.jpg') }}" alt="Cozy Seating">
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why">
+    <h2>Why Choose Us</h2>
+    <div class="why-cards">
+      <div class="card">
+        <h3>☕ Freshly Brewed</h3>
+        <p>Every cup is brewed to perfection using premium beans and expert craftsmanship.</p>
+      </div>
+      <div class="card">
+        <h3>🍰 Made with Love</h3>
+        <p>From pastries to platters, every item is handmade using the freshest ingredients.</p>
+      </div>
+      <div class="card">
+        <h3>🏠 Cozy Ambience</h3>
+        <p>Enjoy a warm and inviting atmosphere that feels like home, perfect for friends or solitude.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Darshan Da Café | Crafted with ❤️ by Darshuu</p>
+    <p>Follow us on Instagram • Facebook • Twitter</p>
+  </footer>
+</body>
+</html>

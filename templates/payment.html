@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment | Darshan Da Café</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    body {
+      background-color: #fff8f0;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    h2 {
+      color: #d35400;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    button {
+      background-color: #d35400;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #e67e22;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    @media(max-width: 600px) {
+      body { padding: 40px 10px; }
+      h2 { font-size: 1.6rem; }
+      p { font-size: 1rem; }
+      button { padding: 12px 30px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <h2>Complete Your Payment 💳</h2>
+  <p>Amount to Pay: <strong>₹{{ total_price }}</strong></p>
+
+  <button id="pay-btn">Pay Now</button>
+
+  <footer>
+    © 2025 Darshan Da Café | Secure Payments Powered by Razorpay
+  </footer>
+
+  <script>
+    var options = {
+        "key": "{{ razorpay_key }}",
+        "amount": "{{ total_price * 100 }}",
+        "currency": "INR",
+        "name": "Darshan Da Café",
+        "description": "Online Order Payment",
+        "image": "https://cdn-icons-png.flaticon.com/512/3480/3480519.png", // optional logo
+        "order_id": "{{ razorpay_order_id }}",
+        "handler": function (response){
+            alert("✅ Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
+            window.location.href = "/payment_success?payment_id=" + response.razorpay_payment_id + "&order_id=" + response.razorpay_order_id;
+        },
+        "theme": { "color": "#d35400" }
+    };
+
+    var rzp1 = new Razorpay(options);
+
+    // Handle payment failure gracefully
+    rzp1.on('payment.failed', function (response){
+        alert("❌ Payment Failed!\nReason: " + response.error.description);
+    });
+
+    document.getElementById("pay-btn").onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+  </script>
+</body>
+</html>

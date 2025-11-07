@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | Darshan Da Café</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">Admin Panel — Darshan Da Café</div>
+    <nav>
+      <a href="{{ url_for('admin_dashboard') }}" class="active">Dashboard</a>
+      <a href="{{ url_for('menu') }}">View Menu</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  </header>
+
+  <section class="admin-dashboard">
+    <h2>Admin Dashboard</h2>
+
+    <div class="dashboard-grid">
+      <div class="card">
+        <h3>Total Orders</h3>
+        <p>{{ total_orders }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Revenue</h3>
+        <p>₹{{ total_revenue }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Users</h3>
+        <p>{{ total_users }}</p>
+      </div>
+    </div>
+
+    <div class="manage-section">
+      <h3>Manage Menu</h3>
+      <form class="menu-form" method="POST" action="{{ url_for('add_dish') }}">
+        <input type="text" name="dish_name" placeholder="Dish Name" required>
+        <input type="number" name="price" placeholder="Price (₹)" required>
+        <select name="category" required>
+          <option value="">Select Category</option>
+          <option value="Veg">Veg</option>
+          <option value="Non-Veg">Non-Veg</option>
+          <option value="Beverages">Beverages</option>
+          <option value="Dessert">Dessert</option>
+        </select>
+        <button type="submit">Add Dish</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Darshan Da Café — Admin Panel</p>
+  </footer>
+</body>
+</html>

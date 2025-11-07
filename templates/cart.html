@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart | Darshan Da Café</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    /* small local tweaks for the form */
+    .address-form { max-width: 900px; margin: 20px auto; text-align:left; }
+    .address-row { display:flex; gap:12px; flex-wrap:wrap; }
+    .address-row .field { flex:1 1 250px; }
+    .address-form label { display:block; font-weight:600; margin-bottom:6px; color:#444; }
+    .address-form input, .address-form textarea { width:100%; padding:10px; border-radius:6px; border:1px solid #ddd; }
+    .place-order { display:flex; justify-content:flex-end; gap:12px; margin-top:14px; }
+    @media(max-width:700px){ .address-row { flex-direction:column; } .place-order { justify-content:center; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Darshan Da Café</div>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('menu') }}">Menu</a>
+      <a href="{{ url_for('cart') }}" class="active">Cart</a>
+      <a href="{{ url_for('feedback') }}">Feedback</a>
+      {% if session.get('user_id') %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('signup') }}">Signup</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <section class="cart-section" style="padding-top:120px;">
+    <h2 style="text-align:center;">Your Order Summary</h2>
+
+    {% if items %}
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Dish</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.dish_name }}</td>
+          <td>₹{{ item.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>₹{{ item.total }}</td>
+          <td>
+            <a href="{{ url_for('remove_item', cart_id=item.cart_id) }}" class="remove-btn">Remove</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div style="max-width:900px;margin:20px auto;">
+      <h3>Delivery / Billing Details</h3>
+
+      <!-- Address form posts to /checkout -->
+      <form class="address-form" method="POST" action="{{ url_for('checkout') }}">
+        <div class="address-row">
+          <div class="field">
+            <label for="customer_name">Full Name</label>
+            <input type="text" id="customer_name" name="customer_name" required placeholder="Your full name">
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required placeholder="10-digit phone">
+          </div>
+        </div>
+
+        <div class="address-row" style="margin-top:12px;">
+          <div class="field">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required placeholder="City">
+          </div>
+          <div class="field">
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" name="pincode" required placeholder="Pincode / ZIP">
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <label for="address">Address (house, street, landmark)</label>
+          <textarea id="address" name="address" rows="3" required placeholder="Full delivery address"></textarea>
+        </div>
+
+        <div class="place-order">
+          <!-- Either go to payment (razorpay) or allow COD later -->
+          <button type="submit" class="checkout-btn">Proceed to Payment</button>
+        </div>
+      </form>
+
+      <div style="text-align:right; margin-top:10px;">
+        <h3>Total: ₹{{ total_price }}</h3>
+      </div>
+    </div>
+
+    {% else %}
+    <p style="text-align:center; margin-top:30px;">🛒 Your cart is empty! Go add some tasty food 😋</p>
+    {% endif %}
+  </section>
+
+  <footer style="margin-top:40px;">
+    <p>© 2025 Darshan Da Café</p>
+  </footer>
+</body>
+</html>
