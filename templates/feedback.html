@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feedback | Darshan Da Café</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <header>
-    <div class="logo">Darshan Da Café</div>
+  <header class="navbar">
+    <div class="logo">☕ Darshan Da Café</div>
     <nav>
       <a href="{{ url_for('home') }}">Home</a>
       <a href="{{ url_for('menu') }}">Menu</a>
@@ -15,13 +17,15 @@
     </nav>
   </header>
 
-  <div class="form-container">
-    <h2>We’d Love Your Feedback</h2>
-    <form method="POST" action="{{ url_for('feedback') }}">
-      <textarea name="message" placeholder="Write your feedback..." rows="5" required></textarea>
-      <input type="number" name="rating" min="1" max="5" placeholder="Rate us (1–5)" required>
-      <button type="submit">Submit Feedback</button>
-    </form>
+  <div class="form-wrapper">
+    <div class="form-card">
+      <h2>We’d Love Your Feedback 💬</h2>
+      <form method="POST" action="{{ url_for('feedback') }}">
+        <textarea name="message" placeholder="Write your feedback..." rows="5" required></textarea>
+        <input type="number" name="rating" min="1" max="5" placeholder="Rate us (1–5)" required>
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
   </div>
 </body>
 </html>

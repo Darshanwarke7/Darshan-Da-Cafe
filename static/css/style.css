@@ -314,3 +314,116 @@
     }
   }
   
+ /* ===== Form Pages: Perfect Center Alignment & Styling ===== */
+.form-wrapper,
+.form-container {
+  display: flex;
+  flex-direction: column; /* stacks heading + form vertically */
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  padding-top: 100px; /* accounts for fixed navbar height */
+  background-color: var(--bg);
+  width: 100%;
+  text-align: center;
+}
+
+/* ===== Form Card ===== */
+.form-card,
+.form-container form {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  padding: 2rem 2.5rem;
+  width: 90%;
+  max-width: 420px;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card:hover,
+.form-container form:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== Form Heading ===== */
+.form-card h2,
+.form-container h2 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* ===== Input Fields ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fffaf2;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 6px rgba(211, 84, 0, 0.3);
+  outline: none;
+}
+
+form textarea {
+  resize: none;
+}
+
+/* ===== Submit Button ===== */
+form button {
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+form button:hover {
+  background: var(--secondary);
+  color: #000;
+  transform: scale(1.02);
+}
+
+/* ===== Links & Text ===== */
+.form-container p,
+.form-card p {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.form-container a,
+.form-card a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.form-container a:hover,
+.form-card a:hover {
+  color: var(--secondary);
+}
